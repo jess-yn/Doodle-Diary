@@ -1,0 +1,124 @@
+@font-face {
+  font-family: "Caveat";
+  src: url("../assets/fonts/Caveat.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("../assets/fonts/Fraunces.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("../assets/fonts/Fraunces-Italic.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter-Italic.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: var(--font-size-base);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-secondary);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  font-weight: var(--font-weight-medium);
+}
+
+h1 {
+  margin-bottom: 1.375rem;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-size: var(--font-size-5xl);
+}
+
+h2 {
+  margin-bottom: 2.5rem;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-size: var(--font-size-3xl);
+}
+
+h3 {
+  margin-bottom: 0.5rem;
+  font-size: var(--font-size-xl);
+}
+
+h4 {
+  margin-bottom: 0.25rem;
+  font-size: var(--font-size-lg);
+}
+
+p {
+  line-height: 1.55;
+  font-size: var(--font-size-sm);
+}
+
+.accent {
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+.overline {
+  margin-bottom: 0.75rem;
+  font-size: var(--font-size-xl);
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+
+  &::before {
+    content: "~ ";
+  }
+
+  &::after {
+    content: " ~";
+  }
+}
+
+.note {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: var(--font-size-lg);
+  font-family: var(--font-mono);
+  color: var(--color-brown-100);
+
+  &::before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-brown-100);
+    mask-image: url("../assets/svg/tick.svg");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+  }
+}
