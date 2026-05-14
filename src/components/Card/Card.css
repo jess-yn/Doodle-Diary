@@ -1,0 +1,26 @@
+.card {
+  padding: 1.75rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-cream-100);
+  box-shadow: var(--box-shadow);
+}
+
+.card-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-cream-200);
+}
+
+.card-content {
+  span {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-3xl);
+    color: var(--color-accent);
+  }
+}

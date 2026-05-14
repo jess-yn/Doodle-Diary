@@ -1,0 +1,18 @@
+.cta-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3.25rem;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+
+  h2 {
+    margin: 0;
+    max-width: 600px;
+  }
+
+  .accent {
+    color: var(--color-cream-200);
+  }
+}

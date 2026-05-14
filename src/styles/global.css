@@ -122,3 +122,17 @@ p {
     mask-size: contain;
   }
 }
+
+.two-column {
+  display: flex;
+  align-items: center;
+  gap: 3.75rem;
+
+  .left {
+    width: 50%;
+  }
+
+  .right {
+    width: 50%;
+  }
+}

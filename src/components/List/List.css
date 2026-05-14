@@ -1,0 +1,24 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+
+  li {
+    display: flex;
+    gap: 0.875rem;
+    list-style: none;
+  }
+
+  .list-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border: var(--border);
+    border-radius: var(--radius-circle);
+    background-image: url("../../assets/svg/tick.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px 16px;
+    background-color: var(--color-cream-200);
+  }
+}

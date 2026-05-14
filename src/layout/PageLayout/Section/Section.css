@@ -1,0 +1,11 @@
+section {
+  padding: 3.75rem 0 2.25rem;
+}
+
+.section-heading {
+  text-align: center;
+
+  .overline {
+    margin-bottom: 0.375rem;
+  }
+}

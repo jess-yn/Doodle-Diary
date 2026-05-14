@@ -10,11 +10,11 @@ nav {
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.625rem;
 
   & .brand-name {
     font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-bold);
     font-family: var(--font-mono);
   }
 }

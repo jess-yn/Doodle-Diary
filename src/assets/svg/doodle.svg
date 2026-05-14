@@ -1,0 +1,8 @@
+<svg class="art" viewBox="0 0 200 200" fill="none" stroke="#2b1d14" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 100 Q80 40 120 80 T 180 120" stroke-width="3"></path>
+          <circle cx="100" cy="110" r="34" fill="#FFE8CD"></circle>
+          <path d="M82 118 q18 14 36 0"></path>
+          <circle cx="90" cy="100" r="2.4" fill="#2b1d14"></circle>
+          <circle cx="110" cy="100" r="2.4" fill="#2b1d14"></circle>
+          <path d="M30 170 q40 -10 80 0 t 60 0" stroke="#d96b3a"></path>
+        </svg>

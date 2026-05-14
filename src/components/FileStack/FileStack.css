@@ -1,0 +1,20 @@
+.file-stack {
+  position: relative;
+  width: 100%;
+  height: 520px;
+}
+
+.file {
+  &.file-1 {
+    inset: 80px 30px 20px 30px;
+    transform: rotate(-1deg);
+  }
+  &.file-2 {
+    inset: 20px 0 80px 60px;
+    transform: rotate(2deg);
+  }
+  &.file-3 {
+    inset: 40px 80px 60px 0;
+    transform: rotate(-3deg);
+  }
+}

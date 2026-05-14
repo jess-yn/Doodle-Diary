@@ -1,0 +1,22 @@
+.card-row {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.tile-gallery {
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.875rem;
+  padding: 1.25rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-cream-100);
+
+  .tile {
+    border: var(--border-dashed);
+    border-radius: var(--radius-md);
+    background-color: var(--color-secondary);
+  }
+}

@@ -1,0 +1,28 @@
+.file {
+  position: absolute;
+  border-radius: var(--radius-sm);
+  border: var(--border);
+  font-size: var(--font-size-base);
+
+  &.bg-cream {
+    background-color: var(--color-cream-100);
+  }
+
+  &.bg-yellow {
+    background-color: var(--color-cream-200);
+  }
+}
+
+.file-label {
+  position: absolute;
+  top: 0.625rem;
+  left: 0.825rem;
+  font-family: var(--font-mono);
+}
+
+.file-number {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.825rem;
+  font-family: var(--font-serif);
+}

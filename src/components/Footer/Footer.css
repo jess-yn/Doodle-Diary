@@ -1,0 +1,14 @@
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 1.375rem 2.25rem;
+
+  p {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-lg);
+    color: var(--color-brown-100);
+  }
+}

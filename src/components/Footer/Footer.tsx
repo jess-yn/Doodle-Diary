@@ -1,3 +1,10 @@
+import "./Footer.css";
+
 export function Footer() {
-    return <h1>Footer</h1>;
+  return (
+    <footer>
+      <p>made with warm pencils and quiet evenings</p>
+      <p>© Doodle Diary</p>
+    </footer>
+  );
 }

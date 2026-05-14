@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Button } from "../Button/Button";
+import { FileStack } from "../FileStack/FileStack";
 import "./HeroBanner.css";
 
 type PrimaryCTA = {
@@ -43,7 +44,9 @@ export function HeroBanner({
         </div>
         <p className="note">free to try — no account needed</p>
       </div>
-      <div className="banner-right"></div>
+      <div className="banner-right">
+        <FileStack></FileStack>
+      </div>
     </div>
   );
 }
