@@ -1,0 +1,63 @@
+.canvas-wrapper {
+  width: fit-content;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-cream-100);
+  box-shadow: var(--box-shadow);
+}
+
+/* canvas header */
+.canvas-header {
+  display: flex;
+  padding: 0.625rem 0.875rem 0.625rem 1rem;
+
+  .entry-details {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    width: fit-content;
+    padding: 0.25rem 0.625rem;
+    border: var(--border);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-2xs);
+    background-color: var(--color-cream-200);
+
+    &::before {
+      display: block;
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-round);
+      background-color: var(--color-accent);
+    }
+  }
+
+  .title {
+    font-family: var(--font-mono);
+
+    &::before {
+      content: "~ ";
+    }
+
+    &::after {
+      content: "~ ";
+    }
+  }
+}
+
+/* canvas toolbar */
+.canvas-toolbar {
+  display: flex;
+  padding: 0.625rem 0.875rem;
+}
+
+.pens {
+  display: flex;
+  gap: 0.375rem;
+}
