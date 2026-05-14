@@ -14,7 +14,7 @@
     height: 30px;
     flex-shrink: 0;
     border: var(--border);
-    border-radius: var(--radius-circle);
+    border-radius: var(--radius-round);
     background-image: url("../../assets/svg/tick.svg");
     background-repeat: no-repeat;
     background-position: center;

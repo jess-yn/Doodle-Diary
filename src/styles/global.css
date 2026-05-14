@@ -53,26 +53,30 @@ h4 {
   font-weight: var(--font-weight-medium);
 }
 
-h1 {
+h1,
+.h1 {
   margin-bottom: 1.375rem;
   line-height: 0.95;
   letter-spacing: -0.03em;
   font-size: var(--font-size-5xl);
 }
 
-h2 {
+h2,
+.h2 {
   margin-bottom: 2.5rem;
   line-height: 1.05;
   letter-spacing: -0.02em;
   font-size: var(--font-size-3xl);
 }
 
-h3 {
+h3,
+.h3 {
   margin-bottom: 0.5rem;
   font-size: var(--font-size-xl);
 }
 
-h4 {
+h4,
+.h4 {
   margin-bottom: 0.25rem;
   font-size: var(--font-size-lg);
 }

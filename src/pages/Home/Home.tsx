@@ -10,12 +10,12 @@ import "./Home.css";
 
 const primaryCta = {
   text: `Let's doodle`,
-  href: "/",
+  href: "/entry",
 };
 
 const SecondaryCTA = {
   text: `See an example`,
-  href: "/",
+  href: "/entry",
 };
 
 const stepCards: CardProps[] = [
@@ -114,7 +114,7 @@ export function Home() {
       </Section>
 
       <Section>
-        <CtaBanner btnText="Let's doodle" href="/">
+        <CtaBanner btnText="Let's doodle" href="/entry">
           <>
             Today is a <span className="accent">blank page</span>.<br />
             What does it look like?

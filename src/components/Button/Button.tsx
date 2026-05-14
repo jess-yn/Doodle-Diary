@@ -4,7 +4,7 @@ import "./Button.css";
 type ButtonVariant = "primary" | "secondary";
 type ButtonSize = "sm" | "md" | "lg";
 
-interface buttonProps {
+interface ButtonProps {
   children: string;
   disabled?: boolean;
   variant?: ButtonVariant;
@@ -31,7 +31,7 @@ export function Button({
   size = "md",
   href,
   onClick,
-}: buttonProps) {
+}: ButtonProps) {
   const classes = `btn ${variants[variant]} ${sizes[size]}`;
 
   if (href) {
