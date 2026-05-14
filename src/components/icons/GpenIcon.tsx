@@ -1,0 +1,18 @@
+export const GpenIcon: React.FC = () => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      data-om-id="jsx:/https:/019dfb37-2492-78e7-9934-20a8b85b67d6.claudeusercontent.com/v1/design/projects/019dfb37-2492-78e7-9934-20a8b85b67d6/serve/entry-app.jsx:1923:31:31"
+    >
+      <path
+        d="M4 20c4-1 8-3 11-6s5-7 5-9c-2 0-6 2-9 5s-6 6-7 10z"
+        data-om-id="jsx:/https:/019dfb37-2492-78e7-9934-20a8b85b67d6.claudeusercontent.com/v1/design/projects/019dfb37-2492-78e7-9934-20a8b85b67d6/serve/entry-app.jsx:2045:31:153"
+      />
+    </svg>
+  );
+};

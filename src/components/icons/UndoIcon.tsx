@@ -1,0 +1,22 @@
+export const UndoIcon: React.FC = () => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      data-om-id="jsx:/https:/019dfb37-2492-78e7-9934-20a8b85b67d6.claudeusercontent.com/v1/design/projects/019dfb37-2492-78e7-9934-20a8b85b67d6/serve/entry-app.jsx:2366:33:28"
+    >
+      <path
+        d="M9 14l-5-5 5-5"
+        data-om-id="jsx:/https:/019dfb37-2492-78e7-9934-20a8b85b67d6.claudeusercontent.com/v1/design/projects/019dfb37-2492-78e7-9934-20a8b85b67d6/serve/entry-app.jsx:2488:33:150"
+      />
+      <path
+        d="M4 9h10a6 6 0 0 1 0 12h-3"
+        data-om-id="jsx:/https:/019dfb37-2492-78e7-9934-20a8b85b67d6.claudeusercontent.com/v1/design/projects/019dfb37-2492-78e7-9934-20a8b85b67d6/serve/entry-app.jsx:2514:33:176"
+      />
+    </svg>
+  );
+};
