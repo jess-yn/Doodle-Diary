@@ -94,6 +94,12 @@ a {
   }
 }
 
+input,
+textarea {
+  width: 100%;
+  background-color: transparent;
+}
+
 .accent {
   font-style: italic;
   color: var(--color-accent);

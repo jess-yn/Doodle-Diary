@@ -39,4 +39,10 @@
     font-size: var(--font-size-2xs);
     text-transform: capitalize;
   }
+
+  &.active {
+    border-color: var(--color-brown-100);
+    background-color: var(--color-cream-200);
+    box-shadow: var(--box-shadow-dark);
+  }
 }

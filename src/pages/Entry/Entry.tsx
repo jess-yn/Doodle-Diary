@@ -4,6 +4,7 @@ import { PencilIcon } from "../../components/icons/PencilIcon";
 import { ButtonIcon } from "../../components/Button/ButtonIcon";
 import { Button } from "../../components/Button/Button";
 import "./Entry.css";
+import { useState } from "react";
 
 const MOODS = {
   happy: <PencilIcon />,
@@ -18,6 +19,8 @@ const MOODS = {
 };
 
 export function Entry() {
+  const [activeMood, setActiveMood] = useState<keyof typeof MOODS>();
+
   const now: Date = new Date();
   const dateText = new Intl.DateTimeFormat("en-GB", {
     weekday: "long",
@@ -53,32 +56,14 @@ export function Entry() {
             subheading="pick a mood which best describes you today"
           >
             <div className="moods">
-              <ButtonIcon
-                icon={<PencilIcon />}
-                tooltip="happy"
-                variant="lg"
-                onClick={() => console.log("click")}
-              ></ButtonIcon>
-              <ButtonIcon
-                icon={<PencilIcon />}
-                tooltip="happy"
-                variant="lg"
-                onClick={() => console.log("click")}
-              ></ButtonIcon>
-              <ButtonIcon
-                icon={<PencilIcon />}
-                tooltip="happy"
-                variant="lg"
-                onClick={() => console.log("click")}
-              ></ButtonIcon>
-
               {Object.entries(MOODS).map(([key, value]) => (
                 <ButtonIcon
                   key={key}
                   icon={value}
                   tooltip={key}
                   variant="lg"
-                  onClick={() => console.log("click")}
+                  active={activeMood == key}
+                  onClick={() => setActiveMood(key as keyof typeof MOODS)}
                 ></ButtonIcon>
               ))}
             </div>
@@ -86,11 +71,20 @@ export function Entry() {
           <SectionCard
             heading="How was today?"
             subheading="what stuck with you today? "
-          ></SectionCard>
+          >
+            <textarea
+              name="moment"
+              id="moment"
+              maxLength={200}
+              rows={4}
+            ></textarea>
+          </SectionCard>
           <SectionCard
             heading="A line worth keeping"
             subheading="a motto, a lyric, a snippet overheard"
-          ></SectionCard>
+          >
+            <input name="quote" id="quote" type="text" />
+          </SectionCard>
         </div>
       </div>
     </>

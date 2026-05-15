@@ -27,3 +27,34 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
 }
+
+#moment {
+  resize: none;
+  border: none;
+
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    border: none;
+    outline: none;
+  }
+
+  &:focus-within {
+    background-color: var(--color-cream-200);
+  }
+}
+
+#quote {
+  border: none;
+
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    border: none;
+    outline: none;
+  }
+
+  &:focus-within {
+    background-color: var(--color-cream-200);
+  }
+}
