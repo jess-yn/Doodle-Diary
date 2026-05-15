@@ -8,7 +8,7 @@ export interface ButtonIconProps {
   disabled?: boolean;
   active?: boolean;
   tooltip?: string;
-  variant: ButtonIconVariants;
+  variant?: ButtonIconVariants;
   onClick: () => void;
 }
 
