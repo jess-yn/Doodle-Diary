@@ -1,4 +1,4 @@
-import { Children, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import "./SectionCard.css";
 
 interface SectionCardProps {

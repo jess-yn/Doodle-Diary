@@ -26,7 +26,12 @@ export function ButtonIcon({
   return (
     <>
       {isSmall ? (
-        <button className={classes} title={tooltip} onClick={onClick}>
+        <button
+          className={classes}
+          title={tooltip}
+          onClick={onClick}
+          disabled={disabled}
+        >
           {icon}
         </button>
       ) : (

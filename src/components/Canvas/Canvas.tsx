@@ -17,6 +17,8 @@ const PEN_OPTIONS = {
   },
   fineliner: { size: 2, thinning: 0, smoothing: 0.8, streamline: 0.8 },
   marker: { size: 14, thinning: 0.3, smoothing: 0.5, streamline: 0.3 },
+  gpen: { size: 2, thinning: 0, smoothing: 0.8, streamline: 0.8 },
+  eraser: { size: 14, thinning: 0.3, smoothing: 0.5, streamline: 0.3 },
 };
 
 export type PenType = keyof typeof PEN_OPTIONS;

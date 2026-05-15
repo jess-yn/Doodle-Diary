@@ -71,6 +71,16 @@ export function Entry() {
                 variant="lg"
                 onClick={() => console.log("click")}
               ></ButtonIcon>
+
+              {Object.entries(MOODS).map(([key, value]) => (
+                <ButtonIcon
+                  key={key}
+                  icon={value}
+                  tooltip={key}
+                  variant="lg"
+                  onClick={() => console.log("click")}
+                ></ButtonIcon>
+              ))}
             </div>
           </SectionCard>
           <SectionCard
