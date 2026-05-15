@@ -55,6 +55,7 @@
 .canvas-toolbar {
   display: flex;
   padding: 0.625rem 0.875rem;
+  gap: 1rem;
 }
 
 .pens {
@@ -99,4 +100,8 @@
   .color-purple {
     background-color: #e5c9f0;
   }
+}
+
+.controls {
+  margin-left: auto;
 }

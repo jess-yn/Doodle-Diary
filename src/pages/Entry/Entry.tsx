@@ -33,11 +33,11 @@ export function Entry() {
       <p className="overline">{dateText}</p>
       <h1 className="h2">Journal Entry</h1>
       <div className="entry-status">
-        <div>
-          <p>Day 1 of your streak</p>
+        <div className="entry-details">
+          <span>Day 1 of your streak</span>
           <span>Editing</span>
         </div>
-        <div>
+        <div className="entry-modify">
           <span>autosaved as draft</span>
           <Button variant="secondary" size="md">
             Share
