@@ -1,4 +1,5 @@
 import { Button } from "../Button/Button";
+import { Link } from "react-router";
 import { LogoIcon } from "../icons/LogoIcon";
 import "./Header.css";
 
@@ -6,10 +7,10 @@ export function Header() {
   return (
     <>
       <nav>
-        <div className="brand">
+        <Link to="/" className="brand">
           <LogoIcon></LogoIcon>
           <span className="brand-name">Doodle Diary</span>
-        </div>
+        </Link>
         <div className="menu-links">
           <Button variant="secondary" size="md">
             Sign in

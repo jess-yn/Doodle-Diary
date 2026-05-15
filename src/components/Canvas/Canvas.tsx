@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import getStroke from "perfect-freehand";
 import { CanvasHeader } from "./CanvasHeader";
 import { CanvasToolbar } from "./CanvasToolbar";
@@ -8,12 +8,27 @@ import "./Canvas.css";
 type Point = [x: number, y: number, pressure: number];
 
 const PEN_OPTIONS = {
-  pencil: { size: 4, thinning: 0.6, smoothing: 0.5, streamline: 0.5 },
+  pencil: {
+    size: 4,
+    thinning: 0.6,
+    smoothing: 0.5,
+    streamline: 0.5,
+    simulatePressure: false,
+  },
   fineliner: { size: 2, thinning: 0, smoothing: 0.8, streamline: 0.8 },
   marker: { size: 14, thinning: 0.3, smoothing: 0.5, streamline: 0.3 },
 };
 
-type PenType = keyof typeof PEN_OPTIONS;
+export type PenType = keyof typeof PEN_OPTIONS;
+
+const COLOR_OPTIONS = {
+  black: "#5a4636",
+  pink: "#ffccd2",
+  blue: "#b7c9e2",
+  purple: "#e5c9f0",
+};
+
+export type ColorType = keyof typeof COLOR_OPTIONS;
 
 function getSvgPathFromStroke(stroke: number[][]) {
   if (!stroke.length) return "";
@@ -29,8 +44,10 @@ export function Canvas() {
   const [pen, setPen] = useState<PenType>("pencil");
   const [color, setColor] = useState("#5a4636");
   const currentStroke = useRef<Point[]>([]);
-  const previousStroke = useRef<Point[][]>([]);
+  const pastStrokes = useRef<Point[][]>([]);
+  const redoStrokes = useRef<Point[][]>([]);
   const isDrawing = useRef(false);
+  const isClear = useRef(false);
 
   const getPos = (e: PointerEvent, canvas: HTMLCanvasElement) => {
     const canvasRect = canvas.getBoundingClientRect();
@@ -53,7 +70,11 @@ export function Canvas() {
       const path = new Path2D(getSvgPathFromStroke(stroke));
 
       ctx.save();
-      ctx.filter = "url(#pencil-grain)";
+
+      if (pen == "pencil") {
+        ctx.filter = "url(#pencil-grain)";
+      }
+
       ctx.fillStyle = color;
       ctx.globalAlpha = 0.85;
       ctx.fill(path);
@@ -73,6 +94,7 @@ export function Canvas() {
       canvas.setPointerCapture(e.pointerId);
       const { x, y, pressure } = getPos(e, canvas);
       currentStroke.current.push([x, y, pressure]);
+      redoStrokes.current = [];
     };
 
     const onPointerMove = (e: PointerEvent) => {
@@ -84,7 +106,7 @@ export function Canvas() {
 
     const onPointerUp = () => {
       isDrawing.current = false;
-      previousStroke.current.push(currentStroke.current);
+      pastStrokes.current.push(currentStroke.current);
       currentStroke.current = [];
     };
 
@@ -99,16 +121,45 @@ export function Canvas() {
     };
   }, [drawStroke]);
 
+  // clear entire canvas
   const clear = () => {
+    isClear.current = true;
     currentStroke.current = [];
     canvasRef.current?.getContext("2d")?.clearRect(0, 0, 800, 600);
+    redoStrokes.current = [];
   };
 
   const undo = () => {
-    if (!previousStroke.current) return;
-    canvasRef.current?.getContext("2d")?.clearRect(0, 0, 800, 600);
-    console.log(previousStroke.current.pop());
-    previousStroke.current.forEach((stroke) => drawStroke(stroke));
+    if (!pastStrokes.current) return;
+
+    if (!isClear.current) {
+      canvasRef.current?.getContext("2d")?.clearRect(0, 0, 800, 600);
+      const lastStroke: Point[] | undefined = pastStrokes.current.pop();
+
+      if (!lastStroke) return;
+      redoStrokes.current.push(lastStroke);
+    } else {
+      isClear.current = false;
+    }
+
+    pastStrokes.current.forEach((stroke) => drawStroke(stroke));
+  };
+
+  const redo = () => {
+    if (!redoStrokes) return;
+    const redoStroke: Point[] | undefined = redoStrokes.current.pop();
+
+    if (!redoStroke) return;
+    pastStrokes.current.push(redoStroke);
+    drawStroke(redoStroke);
+  };
+
+  const onPenChange = (pen: PenType) => {
+    setPen(pen);
+  };
+
+  const onColorChange = (color: ColorType) => {
+    setColor(COLOR_OPTIONS[color]);
   };
 
   return (
@@ -129,7 +180,13 @@ export function Canvas() {
       <div className="canvas-wrapper">
         <CanvasHeader></CanvasHeader>
         <canvas ref={canvasRef} width={800} height={600} className="canvas" />
-        <CanvasToolbar></CanvasToolbar>
+        <CanvasToolbar
+          onPenChange={onPenChange}
+          onColorChange={onColorChange}
+          onUndo={undo}
+          onRedo={redo}
+          onClear={clear}
+        />
       </div>
     </>
   );

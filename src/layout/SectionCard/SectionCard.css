@@ -1,0 +1,13 @@
+.section-card {
+  padding: 1.125rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-cream-100);
+  box-shadow: var(--box-shadow);
+}
+
+.subheading {
+  margin-bottom: 0.75rem;
+  font-size: var(--font-size-lg);
+  font-family: var(--font-mono);
+}

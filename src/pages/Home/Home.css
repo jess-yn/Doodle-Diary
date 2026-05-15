@@ -1,6 +1,10 @@
 .card-row {
   display: flex;
   gap: 1.5rem;
+
+  @media (max-width: 980px) {
+    flex-direction: column;
+  }
 }
 
 .tile-gallery {

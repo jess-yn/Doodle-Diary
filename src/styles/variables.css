@@ -57,4 +57,8 @@
 
   /* box shadow */
   --box-shadow: 6px 6px 0 0 rgba(43, 29, 20, 0.08);
+  --box-shadow-dark: 6px 6px 0 0 rgba(43, 29, 20, 0.1);
+
+  /* breakpoints */
+  --tablet-breakpoint: 980px;
 }

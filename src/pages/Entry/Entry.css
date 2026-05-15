@@ -1,0 +1,29 @@
+.h2 {
+  margin-bottom: 0.375rem;
+}
+
+.overline {
+  margin-bottom: 0.375rem;
+}
+
+.entry {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.entry-status {
+  display: flex;
+  justify-content: space-between;
+}
+
+.entry-prompts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.moods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}

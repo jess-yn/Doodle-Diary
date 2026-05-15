@@ -1,5 +1,5 @@
 import { HeroBanner } from "../../components/HeroBanner/HeroBanner";
-import { Section } from "../../layout/PageLayout/Section/Section";
+import { Section } from "../../layout/Section/Section";
 import { Card } from "../../components/Card/Card";
 import type { CardProps } from "../../components/Card/Card";
 import { List } from "../../components/List/List";

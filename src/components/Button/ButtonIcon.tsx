@@ -1,12 +1,15 @@
 import type { ReactNode } from "react";
 import "./ButtonIcon.css";
 
+type ButtonIconVariants = "sm" | "lg";
+
 export interface ButtonIconProps {
   icon: ReactNode;
   disabled?: boolean;
   active?: boolean;
-  tooltip: string;
-  onClick: (pen: string) => void;
+  tooltip?: string;
+  variant: ButtonIconVariants;
+  onClick: () => void;
 }
 
 export function ButtonIcon({
@@ -14,13 +17,24 @@ export function ButtonIcon({
   disabled = false,
   active = false,
   tooltip,
+  variant = "sm",
   onClick,
 }: ButtonIconProps) {
-  const classes = `btn-icon ${active ? "active" : ""}`;
+  const classes = `btn-icon ${active ? "active" : ""} ${variant}`;
+  const isSmall = variant === "sm";
 
   return (
-    <button className={classes} onClick={() => onClick(tooltip)}>
-      {icon}
-    </button>
+    <>
+      {isSmall ? (
+        <button className={classes} title={tooltip} onClick={onClick}>
+          {icon}
+        </button>
+      ) : (
+        <button className={classes} onClick={onClick}>
+          {icon}
+          <span>{tooltip}</span>
+        </button>
+      )}
+    </>
   );
 }

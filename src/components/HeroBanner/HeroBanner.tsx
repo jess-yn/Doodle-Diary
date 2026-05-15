@@ -29,8 +29,8 @@ export function HeroBanner({
   secondaryCta,
 }: HeroBannerProps) {
   return (
-    <div className="hero-banner">
-      <div className="banner-left">
+    <div className="hero-banner two-column">
+      <div className="left">
         {overline && <p className="overline">{overline}</p>}
         <h1 className="banner-title">{title}</h1>
         <p className="banner-description">{description}</p>
@@ -44,7 +44,7 @@ export function HeroBanner({
         </div>
         <p className="note">free to try — no account needed</p>
       </div>
-      <div className="banner-right">
+      <div className="right">
         <FileStack></FileStack>
       </div>
     </div>

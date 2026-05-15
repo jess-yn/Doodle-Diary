@@ -1,16 +1,6 @@
 .hero-banner {
-  display: flex;
-  align-items: center;
   gap: 2.75rem;
   padding: 1.875rem 0 3.75rem;
-
-  .banner-left {
-    width: 50%;
-  }
-
-  .banner-right {
-    width: 50%;
-  }
 
   .banner-description {
     margin-bottom: 1.75rem;
