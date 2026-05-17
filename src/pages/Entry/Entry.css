@@ -9,6 +9,10 @@
 .entry {
   display: flex;
   gap: 1.75rem;
+
+  @media (max-width: 980px) {
+    flex-direction: column;
+  }
 }
 
 .entry-status {

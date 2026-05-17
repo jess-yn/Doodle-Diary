@@ -60,6 +60,7 @@
 
 .pens {
   display: flex;
+  align-items: center;
   gap: 0.375rem;
 }
 
@@ -103,5 +104,6 @@
 }
 
 .controls {
+  display: flex;
   margin-left: auto;
 }

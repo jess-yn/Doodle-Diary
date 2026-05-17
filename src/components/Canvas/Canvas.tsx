@@ -50,6 +50,8 @@ export function Canvas() {
   const redoStrokes = useRef<Point[][]>([]);
   const isDrawing = useRef(false);
   const isClear = useRef(false);
+  const [canvasWidth, setCanvasWidth] = useState(800);
+  const [canvasHeight, setCanvasHeight] = useState(600);
 
   const getPos = (e: PointerEvent, canvas: HTMLCanvasElement) => {
     const canvasRect = canvas.getBoundingClientRect();
@@ -112,6 +114,15 @@ export function Canvas() {
       currentStroke.current = [];
     };
 
+    const resize = () => {
+      console.log("window resized");
+      const newWidth: number = Math.min(window.innerWidth - 72, 800);
+      const newHight: number = Math.min(window.innerHeight - 72, 600);
+      setCanvasWidth(newWidth);
+      setCanvasHeight(newHight);
+    };
+
+    window.addEventListener("resize", resize);
     canvas.addEventListener("pointerdown", onPointerDown);
     canvas.addEventListener("pointermove", onPointerMove);
     canvas.addEventListener("pointerup", onPointerUp);
@@ -120,6 +131,7 @@ export function Canvas() {
       canvas.removeEventListener("pointerdown", onPointerDown);
       canvas.removeEventListener("pointermove", onPointerMove);
       canvas.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("resize", resize);
     };
   }, [drawStroke]);
 
@@ -181,7 +193,12 @@ export function Canvas() {
       </svg>
       <div className="canvas-wrapper">
         <CanvasHeader></CanvasHeader>
-        <canvas ref={canvasRef} width={800} height={600} className="canvas" />
+        <canvas
+          ref={canvasRef}
+          width={canvasWidth}
+          height={canvasHeight}
+          className="canvas"
+        />
         <CanvasToolbar
           onPenChange={onPenChange}
           onColorChange={onColorChange}
