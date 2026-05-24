@@ -92,7 +92,7 @@ export function Canvas() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const onPointerDown = (e: PointerEvent | TouchEvent) => {
+    const onPointerDown = (e: PointerEvent) => {
       console.log("pointer clicked");
       isDrawing.current = true;
       canvas.setPointerCapture(e.pointerId);
@@ -101,7 +101,7 @@ export function Canvas() {
       redoStrokes.current = [];
     };
 
-    const onPointerMove = (e: PointerEvent | TouchEvent) => {
+    const onPointerMove = (e: PointerEvent) => {
       if (!isDrawing.current) return;
       const { x, y, pressure } = getPos(e, canvas);
       currentStroke.current.push([x, y, pressure]);
@@ -126,18 +126,11 @@ export function Canvas() {
     canvas.addEventListener("pointerdown", onPointerDown);
     canvas.addEventListener("pointermove", onPointerMove);
     canvas.addEventListener("pointerup", onPointerUp);
-    canvas.addEventListener("touchstart", onPointerDown);
-    canvas.addEventListener("touchmove", onPointerMove);
-    canvas.addEventListener("touchend", onPointerUp);
 
     return () => {
       canvas.removeEventListener("pointerdown", onPointerDown);
       canvas.removeEventListener("pointermove", onPointerMove);
       canvas.removeEventListener("pointerup", onPointerUp);
-      canvas.removeEventListener("touchstart", onPointerDown);
-      canvas.removeEventListener("touchmove", onPointerMove);
-      canvas.removeEventListener("touchend", onPointerUp);
-
       window.removeEventListener("resize", resize);
     };
   }, [drawStroke]);

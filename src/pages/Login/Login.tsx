@@ -1,3 +1,12 @@
+import { Form } from "../../components/Form/Form";
+
 export function Login() {
-    return <h1>Login</h1>;
+  return (
+    <>
+      <div className="two-column">
+        <div className="left"></div>
+        <Form></Form>
+      </div>
+    </>
+  );
 }

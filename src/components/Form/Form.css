@@ -1,0 +1,7 @@
+.form-card {
+  padding: 2.375rem 2.25rem 2rem;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-cream-100);
+  box-shadow: var(--box-shadow);
+}

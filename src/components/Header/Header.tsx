@@ -12,10 +12,10 @@ export function Header() {
           <span className="brand-name">Doodle Diary</span>
         </Link>
         <div className="menu-links">
-          <Button variant="secondary" size="md">
+          <Button variant="secondary" size="md" href="/login">
             Sign in
           </Button>
-          <Button variant="primary" size="md">
+          <Button variant="primary" size="md" href="/entry">
             Let's doodle
           </Button>
         </div>
