@@ -69,7 +69,7 @@ export function Entry() {
             </div>
           </SectionCard>
           <SectionCard
-            heading="How was today?"
+            heading="Most memorable moment?"
             subheading="what stuck with you today? "
           >
             <textarea

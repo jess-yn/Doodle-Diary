@@ -1,8 +1,10 @@
 .btn {
+  width: fit-content;
   height: fit-content;
   border-radius: var(--radius-full);
   text-decoration: none;
   cursor: pointer;
+  color: var(--color-primary);
 
   &.btn-primary {
     background-color: var(--color-primary);
@@ -21,5 +23,13 @@
   &.btn-lg {
     padding: 1.125rem 1.875rem;
     font-size: var(--font-size-base);
+  }
+
+  &.btn-right::after {
+    content: " →";
+  }
+
+  &.btn-full {
+    width: 100%;
   }
 }

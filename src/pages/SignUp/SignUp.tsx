@@ -1,7 +1,7 @@
-import { LoginForm } from "../../components/Form/LoginForm";
 import { FileStack } from "../../components/FileStack/FileStack";
+import { SignUpForm } from "../../components/Form/SignUpForm";
 
-export function Login() {
+export function SignUp() {
   return (
     <>
       <div className="two-column">
@@ -9,7 +9,7 @@ export function Login() {
           <FileStack></FileStack>
         </div>
         <div className="right">
-          <LoginForm></LoginForm>
+          <SignUpForm></SignUpForm>
         </div>
       </div>
     </>

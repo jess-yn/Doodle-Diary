@@ -18,7 +18,7 @@ interface HeroBannerProps {
   title: ReactNode;
   description: string;
   primaryCta: PrimaryCTA;
-  secondaryCta: SecondaryCTA;
+  secondaryCta?: SecondaryCTA;
 }
 
 export function HeroBanner({
@@ -35,12 +35,20 @@ export function HeroBanner({
         <h1 className="banner-title">{title}</h1>
         <p className="banner-description">{description}</p>
         <div className="banner-cta">
-          <Button variant="primary" size="lg" href={primaryCta.href}>
+          <Button
+            variant="primary"
+            size="lg"
+            href={primaryCta.href}
+            btnRight={true}
+          >
             {primaryCta.text}
           </Button>
-          <Button variant="secondary" size="lg" href={secondaryCta.href}>
-            {secondaryCta.text}
-          </Button>
+
+          {secondaryCta && (
+            <Button variant="secondary" size="lg" href={secondaryCta.href}>
+              {secondaryCta.text}
+            </Button>
+          )}
         </div>
         <p className="note">free to try — no account needed</p>
       </div>

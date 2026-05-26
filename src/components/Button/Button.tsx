@@ -1,16 +1,17 @@
+import React from "react";
 import { Link } from "react-router";
 import "./Button.css";
 
 type ButtonVariant = "primary" | "secondary";
 type ButtonSize = "sm" | "md" | "lg";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: string;
-  disabled?: boolean;
   variant?: ButtonVariant;
   size?: ButtonSize;
   href?: string;
-  onClick?: () => void;
+  btnRight?: boolean;
+  fullWidth?: boolean;
 }
 
 const variants: Record<ButtonVariant, string> = {
@@ -26,13 +27,14 @@ const sizes: Record<ButtonSize, string> = {
 
 export function Button({
   children,
-  disabled = false,
   variant = "primary",
   size = "md",
   href,
-  onClick,
+  btnRight = false,
+  fullWidth = false,
+  ...props
 }: ButtonProps) {
-  const classes = `btn ${variants[variant]} ${sizes[size]}`;
+  const classes = `btn ${variants[variant]} ${sizes[size]} ${btnRight ? "btn-right" : ""} ${fullWidth ? "btn-full" : ""}`;
 
   if (href) {
     return (
@@ -43,7 +45,10 @@ export function Button({
   }
 
   return (
-    <button className={classes} onClick={onClick} disabled={disabled}>
+    <button
+      className={classes}
+      {...props}
+    >
       {children}
     </button>
   );

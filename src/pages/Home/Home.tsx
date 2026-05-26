@@ -9,12 +9,7 @@ import { LogoIcon } from "../../components/icons/LogoIcon";
 import "./Home.css";
 
 const primaryCta = {
-  text: `Let's doodle`,
-  href: "/entry",
-};
-
-const SecondaryCTA = {
-  text: `See an example`,
+  text: `Try doodling`,
   href: "/entry",
 };
 
@@ -73,7 +68,6 @@ export function Home() {
         }
         description="Doodle Diary is a soft place for the days that words don't quite reach. Pick a mood, jot a moment, sketch the rest. Build a year you can flip through."
         primaryCta={primaryCta}
-        secondaryCta={SecondaryCTA}
       ></HeroBanner>
       <Section
         overline="a small ritual"

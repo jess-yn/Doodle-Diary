@@ -7,6 +7,14 @@ import "./Canvas.css";
 
 type Point = [x: number, y: number, pressure: number];
 
+type Stroke = {
+  points: Point[];
+  pen: PenType;
+  color: string;
+};
+
+const MAX_UNDO_HISTORY = 20;
+
 const PEN_OPTIONS = {
   pencil: {
     size: 4,
@@ -46,12 +54,29 @@ export function Canvas() {
   const [pen, setPen] = useState<PenType>("pencil");
   const [color, setColor] = useState("#5a4636");
   const currentStroke = useRef<Point[]>([]);
-  const pastStrokes = useRef<Point[][]>([]);
-  const redoStrokes = useRef<Point[][]>([]);
+  const pastStrokes = useRef<Stroke[]>([]);
+  const redoStrokes = useRef<Stroke[]>([]);
   const isDrawing = useRef(false);
   const isClear = useRef(false);
-  const [canvasWidth, setCanvasWidth] = useState(800);
-  const [canvasHeight, setCanvasHeight] = useState(600);
+  const [canvasWidth, setCanvasWidth] = useState(
+    Math.min(window.innerWidth - 72, 900),
+  );
+  const [canvasHeight, setCanvasHeight] = useState(
+    Math.min(window.innerHeight, 600),
+  );
+  const activePen = useRef<PenType>(pen);
+  const activeColor = useRef<string>(color);
+
+  useEffect(() => {
+    activePen.current = pen;
+  }, [pen]);
+  useEffect(() => {
+    activeColor.current = color;
+  }, [color]);
+
+  // Pen/color captured at the start of each stroke
+  const currentStrokePen = useRef<PenType>(pen);
+  const currentStrokeColor = useRef<string>(color);
 
   const getPos = (e: PointerEvent, canvas: HTMLCanvasElement) => {
     const canvasRect = canvas.getBoundingClientRect();
@@ -62,30 +87,45 @@ export function Canvas() {
     };
   };
 
+  // Stable — pen and color are explicit parameters, not captured from closure
   const drawStroke = useCallback(
-    (points: Point[]) => {
+    (points: Point[], strokePen: PenType, strokeColor: string) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      const stroke = getStroke(points, PEN_OPTIONS[pen]);
-      const path = new Path2D(getSvgPathFromStroke(stroke));
+      if (points.length > 0) {
+        const stroke = getStroke(points, PEN_OPTIONS[strokePen]);
+        const path = new Path2D(getSvgPathFromStroke(stroke));
 
-      ctx.save();
+        ctx.save();
 
-      if (pen == "pencil") {
-        ctx.filter = "url(#pencil-grain)";
+        if (strokePen === "pencil") {
+          ctx.filter = "url(#pencil-grain)";
+        }
+
+        ctx.fillStyle = strokeColor;
+        ctx.globalAlpha = 0.85;
+        ctx.fill(path);
+      } else {
+        ctx.clearRect(0, 0, 800, 600);
       }
 
-      ctx.fillStyle = color;
-      ctx.globalAlpha = 0.85;
-      ctx.fill(path);
       ctx.restore();
     },
-    [pen, color],
+    [],
   );
+
+  // Redraw all strokes after a resize (changing canvas w/h clears it)
+  useEffect(() => {
+    if (!isClear.current) {
+      pastStrokes.current.forEach((stroke) =>
+        drawStroke(stroke.points, stroke.pen, stroke.color),
+      );
+    }
+  }, [canvasWidth, canvasHeight, drawStroke]);
 
   useEffect(() => {
     console.log("use effect running");
@@ -93,9 +133,22 @@ export function Canvas() {
     if (!canvas) return;
 
     const onPointerDown = (e: PointerEvent) => {
+      if (isClear.current) {
+        console.log("was just cleared, add to array");
+        isClear.current = false;
+        pastStrokes.current.push({
+          points: [],
+          pen: currentStrokePen.current,
+          color: currentStrokeColor.current,
+        });
+        console.log(pastStrokes);
+      }
       console.log("pointer clicked");
       isDrawing.current = true;
       canvas.setPointerCapture(e.pointerId);
+      // Snapshot the active pen/color at stroke start
+      currentStrokePen.current = activePen.current;
+      currentStrokeColor.current = activeColor.current;
       const { x, y, pressure } = getPos(e, canvas);
       currentStroke.current.push([x, y, pressure]);
       redoStrokes.current = [];
@@ -105,12 +158,23 @@ export function Canvas() {
       if (!isDrawing.current) return;
       const { x, y, pressure } = getPos(e, canvas);
       currentStroke.current.push([x, y, pressure]);
-      drawStroke(currentStroke.current);
+      drawStroke(
+        currentStroke.current,
+        currentStrokePen.current,
+        currentStrokeColor.current,
+      );
     };
 
     const onPointerUp = () => {
       isDrawing.current = false;
-      pastStrokes.current.push(currentStroke.current);
+      pastStrokes.current.push({
+        points: currentStroke.current,
+        pen: currentStrokePen.current,
+        color: currentStrokeColor.current,
+      });
+      if (pastStrokes.current.length > MAX_UNDO_HISTORY) {
+        pastStrokes.current.shift();
+      }
       currentStroke.current = [];
     };
 
@@ -144,28 +208,32 @@ export function Canvas() {
   };
 
   const undo = () => {
-    if (!pastStrokes.current) return;
-
     if (!isClear.current) {
+      if (!pastStrokes.current.length) return;
       canvasRef.current?.getContext("2d")?.clearRect(0, 0, 800, 600);
-      const lastStroke: Point[] | undefined = pastStrokes.current.pop();
-
+      const lastStroke = pastStrokes.current.pop();
       if (!lastStroke) return;
       redoStrokes.current.push(lastStroke);
     } else {
       isClear.current = false;
+      redoStrokes.current.push({
+        points: [],
+        pen: currentStrokePen.current,
+        color: currentStrokeColor.current,
+      });
     }
 
-    pastStrokes.current.forEach((stroke) => drawStroke(stroke));
+    console.log(pastStrokes);
+    pastStrokes.current.forEach((stroke) =>
+      drawStroke(stroke.points, stroke.pen, stroke.color),
+    );
   };
 
   const redo = () => {
-    if (!redoStrokes) return;
-    const redoStroke: Point[] | undefined = redoStrokes.current.pop();
-
+    const redoStroke = redoStrokes.current.pop();
     if (!redoStroke) return;
     pastStrokes.current.push(redoStroke);
-    drawStroke(redoStroke);
+    drawStroke(redoStroke.points, redoStroke.pen, redoStroke.color);
   };
 
   const onPenChange = (pen: PenType) => {

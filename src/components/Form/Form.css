@@ -4,4 +4,34 @@
   border-radius: var(--radius-md);
   background-color: var(--color-cream-100);
   box-shadow: var(--box-shadow);
+  color: var(--color-brown-100);
+
+  .field-options {
+    display: flex;
+
+    label {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .sign-up {
+    margin-top: 1.125rem;
+    text-align: center;
+  }
+
+  a {
+    color: var(--color-accent);
+
+    &:visited,
+    &:active {
+      color: var(--color-accent);
+    }
+  }
 }
