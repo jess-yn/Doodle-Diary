@@ -1,0 +1,7 @@
+.form-page {
+  @media (max-width: 980px) {
+    .two-column .left {
+      display: none;
+    }
+  }
+}
