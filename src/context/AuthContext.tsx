@@ -1,17 +1,28 @@
-import { createContext, useEffect, useState, useContext, use } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import supabase from "../services/supabaseClient";
 import type { LoginRequest, SignupRequest } from "../types/auth.types";
 import type { User, Session } from "@supabase/supabase-js";
 
-const AuthContext = createContext<{
-  session: Session | null;
-  user: User | undefined;
-  signUpUser: (payload: SignupRequest) => Promise<{ success: boolean; data?: any; error?: any }>;
-  signInUser: (payload: LoginRequest) => Promise<{ success: boolean; data?: any; error?: any }>;
-  signOutUser: () => Promise<void>;
-} | undefined>(undefined);
+const AuthContext = createContext<
+  | {
+      session: Session | null;
+      user: User | undefined;
+      signUpUser: (
+        payload: SignupRequest,
+      ) => Promise<{ success: boolean; data?: any; error?: any }>;
+      signInUser: (
+        payload: LoginRequest,
+      ) => Promise<{ success: boolean; data?: any; error?: any }>;
+      signOutUser: () => Promise<void>;
+    }
+  | undefined
+>(undefined);
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | undefined>(undefined);
 
@@ -58,7 +69,9 @@ export const AuthContextProvider = ({ children }) => {
       setUser(session?.user ?? undefined);
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
 
@@ -75,5 +88,8 @@ export const AuthContextProvider = ({ children }) => {
 };
 
 export const UserAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context)
+    throw new Error("UserAuth must be used within an AuthContextProvider");
+  return context;
 };

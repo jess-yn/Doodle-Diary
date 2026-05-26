@@ -9,11 +9,11 @@ export function SignUpForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { session, signUpUser } = UserAuth();
+  const [error, setError] = useState<string | null>(null);
+  const { signUpUser } = UserAuth();
   const navigate = useNavigate();
 
-  const handleSignUp = async (e) => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -23,7 +23,8 @@ export function SignUpForm() {
       }
       console.log("sign up finished");
     } catch (err) {
-      setError(err);
+      setError(err instanceof Error ? err.message : "Something went wrong");
+      console.error("There was an error signing up: ", error);
     } finally {
       setLoading(false);
     }

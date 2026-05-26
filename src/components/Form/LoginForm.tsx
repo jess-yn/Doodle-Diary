@@ -8,10 +8,11 @@ export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { session, signInUser } = UserAuth();
+  const { signInUser } = UserAuth();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -20,7 +21,8 @@ export function LoginForm() {
         navigate("/dashboard");
       }
     } catch (err) {
-      console.error("There was an error signing in: ", err);
+      setError(err instanceof Error ? err.message : "Something went wrong");
+      console.error("There was an error signing in: ", error);
     } finally {
       setLoading(false);
     }

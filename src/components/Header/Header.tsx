@@ -8,8 +8,6 @@ export function Header() {
   const { session, signOutUser } = UserAuth();
   const navigate = useNavigate();
 
-  console.log(session);
-
   const handleSignOut = async () => {
     try {
       await signOutUser();
