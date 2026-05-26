@@ -1,25 +1,38 @@
 import { Canvas } from "../../components/Canvas/Canvas";
 import { SectionCard } from "../../layout/SectionCard/SectionCard";
-import { PencilIcon } from "../../components/icons/PencilIcon";
 import { ButtonIcon } from "../../components/Button/ButtonIcon";
 import { Button } from "../../components/Button/Button";
 import "./Entry.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import type { CanvasHandle } from "../../components/Canvas/Canvas";
+import {
+  AngryIcon,
+  AnxiousIcon,
+  CelebratoryIcon,
+  EmptyIcon,
+  FrustratedIcon,
+  HappyIcon,
+  LonelyIcon,
+  RelaxedIcon,
+  SadIcon,
+} from "../../components/icons";
 
 const MOODS = {
-  happy: <PencilIcon />,
-  relaxed: <PencilIcon />,
-  celebratory: <PencilIcon />,
-  sad: <PencilIcon />,
-  lonely: <PencilIcon />,
-  frustrated: <PencilIcon />,
-  anxious: <PencilIcon />,
-  angry: <PencilIcon />,
-  empty: <PencilIcon />,
+  happy: <HappyIcon />,
+  relaxed: <RelaxedIcon />,
+  celebratory: <CelebratoryIcon />,
+  sad: <SadIcon />,
+  lonely: <LonelyIcon />,
+  frustrated: <FrustratedIcon />,
+  anxious: <AnxiousIcon />,
+  angry: <AngryIcon />,
+  empty: <EmptyIcon />,
 };
 
 export function Entry() {
   const [activeMood, setActiveMood] = useState<keyof typeof MOODS>();
+  const canvasRef = useRef<CanvasHandle>(null);
+  const [image, setImage] = useState("");
 
   const now: Date = new Date();
   const dateText = new Intl.DateTimeFormat("en-GB", {
@@ -27,6 +40,13 @@ export function Entry() {
     month: "long",
     day: "numeric",
   }).format(now);
+
+  const handleShare = () => {
+    const dataURL = canvasRef.current?.getDataURL();
+    if (!dataURL) return;
+    setImage(dataURL);
+    console.log(image);
+  };
 
   return (
     <>
@@ -39,7 +59,7 @@ export function Entry() {
         </div>
         <div className="entry-modify">
           <span>autosaved as draft</span>
-          <Button variant="secondary" size="md">
+          <Button variant="secondary" size="md" onClick={handleShare}>
             Share
           </Button>
           <Button variant="primary" size="md">
@@ -49,7 +69,9 @@ export function Entry() {
       </div>
 
       <div className="entry">
-        <Canvas></Canvas>
+        <div>
+          <Canvas ref={canvasRef}></Canvas>
+        </div>
         <div className="entry-prompts">
           <SectionCard
             heading="How was today?"

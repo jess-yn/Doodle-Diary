@@ -1,9 +1,23 @@
-import { useRef, useState, useEffect, useCallback } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+  useImperativeHandle,
+} from "react";
+import type { Ref } from "react";
 import getStroke from "perfect-freehand";
 import { CanvasHeader } from "./CanvasHeader";
 import { CanvasToolbar } from "./CanvasToolbar";
-
 import "./Canvas.css";
+
+export interface CanvasHandle {
+  getDataURL: () => string | null;
+}
+
+interface CanvasProps {
+  ref?: Ref<CanvasHandle>;
+}
 
 type Point = [x: number, y: number, pressure: number];
 
@@ -49,7 +63,7 @@ function getSvgPathFromStroke(stroke: number[][]) {
   return d + "Z";
 }
 
-export function Canvas() {
+export function Canvas({ ref }: CanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [pen, setPen] = useState<PenType>("pencil");
   const [color, setColor] = useState("#5a4636");
@@ -59,13 +73,19 @@ export function Canvas() {
   const isDrawing = useRef(false);
   const isClear = useRef(false);
   const [canvasWidth, setCanvasWidth] = useState(
-    Math.min(window.innerWidth - 72, 900),
+    window.innerWidth > 980
+      ? Math.min(window.innerWidth - 400, 880)
+      : window.innerWidth - 72,
   );
   const [canvasHeight, setCanvasHeight] = useState(
-    Math.min(window.innerHeight, 600),
+    window.innerWidth < 980 ? window.innerHeight * 0.4 : 600,
   );
   const activePen = useRef<PenType>(pen);
   const activeColor = useRef<string>(color);
+
+  useImperativeHandle(ref, () => ({
+    getDataURL: () => canvasRef.current?.toDataURL("image/png") ?? null,
+  }));
 
   useEffect(() => {
     activePen.current = pen;
@@ -110,12 +130,12 @@ export function Canvas() {
         ctx.globalAlpha = 0.85;
         ctx.fill(path);
       } else {
-        ctx.clearRect(0, 0, 800, 600);
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       }
 
       ctx.restore();
     },
-    [],
+    [canvasWidth, canvasHeight],
   );
 
   // Redraw all strokes after a resize (changing canvas w/h clears it)
@@ -180,8 +200,12 @@ export function Canvas() {
 
     const resize = () => {
       console.log("window resized");
-      const newWidth: number = Math.min(window.innerWidth - 72, 800);
-      const newHight: number = Math.min(window.innerHeight - 72, 600);
+      const newWidth: number =
+        window.innerWidth > 980
+          ? Math.min(window.innerWidth - 400, 880)
+          : window.innerWidth - 72;
+      const newHight: number =
+        window.innerWidth < 980 ? window.innerHeight * 0.8 : 600;
       setCanvasWidth(newWidth);
       setCanvasHeight(newHight);
     };
@@ -203,14 +227,18 @@ export function Canvas() {
   const clear = () => {
     isClear.current = true;
     currentStroke.current = [];
-    canvasRef.current?.getContext("2d")?.clearRect(0, 0, 800, 600);
+    canvasRef.current
+      ?.getContext("2d")
+      ?.clearRect(0, 0, canvasWidth, canvasHeight);
     redoStrokes.current = [];
   };
 
   const undo = () => {
     if (!isClear.current) {
       if (!pastStrokes.current.length) return;
-      canvasRef.current?.getContext("2d")?.clearRect(0, 0, 800, 600);
+      canvasRef.current
+        ?.getContext("2d")
+        ?.clearRect(0, 0, canvasWidth, canvasHeight);
       const lastStroke = pastStrokes.current.pop();
       if (!lastStroke) return;
       redoStrokes.current.push(lastStroke);

@@ -59,6 +59,7 @@
 /* canvas toolbar */
 .canvas-toolbar {
   display: flex;
+  flex-wrap: wrap;
   padding: 0.625rem 0.875rem;
   gap: 1rem;
 }
