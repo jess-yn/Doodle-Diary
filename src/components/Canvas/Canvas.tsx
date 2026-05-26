@@ -78,7 +78,7 @@ export function Canvas({ ref }: CanvasProps) {
       : window.innerWidth - 72,
   );
   const [canvasHeight, setCanvasHeight] = useState(
-    window.innerWidth < 980 ? window.innerHeight * 0.4 : 600,
+    window.innerWidth < 980 ? window.innerWidth : 600,
   );
   const activePen = useRef<PenType>(pen);
   const activeColor = useRef<string>(color);
@@ -205,7 +205,7 @@ export function Canvas({ ref }: CanvasProps) {
           ? Math.min(window.innerWidth - 400, 880)
           : window.innerWidth - 72;
       const newHight: number =
-        window.innerWidth < 980 ? window.innerHeight * 0.8 : 600;
+        window.innerWidth < 980 ? window.innerWidth : 600;
       setCanvasWidth(newWidth);
       setCanvasHeight(newHight);
     };
