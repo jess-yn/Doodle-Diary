@@ -5,9 +5,9 @@ export const RelaxedIcon: React.FC = () => {
       viewBox="0 0 32 32"
       fill="none"
       stroke="currentColor"
-      stroke-width="1.6"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <circle cx="16" cy="16" r="12.5" />
       <path d="M11 19c1.5 1 3 1.5 5 1.5s3.5-.5 5-1.5" />

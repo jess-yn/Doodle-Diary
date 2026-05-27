@@ -31,6 +31,8 @@ const MOODS = {
 
 export function Entry() {
   const [activeMood, setActiveMood] = useState<keyof typeof MOODS>();
+  const [moment, setMoment] = useState("");
+  const [quote, setQuote] = useState("");
   const canvasRef = useRef<CanvasHandle>(null);
   const [image, setImage] = useState("");
   const [tabOpen, setTabOpen] = useState(false);
@@ -49,24 +51,39 @@ export function Entry() {
     console.log(image);
   };
 
+  const handleSave = () => {
+    const dataURL = canvasRef.current?.getDataURL();
+    if (!dataURL) return;
+    const postObject = {
+      image: dataURL,
+      mood: activeMood,
+      moment: moment,
+      quote: quote,
+    };
+    console.log(postObject);
+  };
+
   return (
     <>
-      <p className="overline">{dateText}</p>
-      <h1 className="h2">Journal Entry</h1>
-      <div className="entry-status">
-        <div className="entry-details">
-          <span>Day 1 of your streak</span>
-          <span>Editing</span>
+      <div className="entry-heading">
+        <p className="overline">{dateText}</p>
+        <h1 className="h2">Journal Entry</h1>
+        <div className="entry-status">
+          <div className="entry-details">
+            <span>Day 1 of your streak</span>
+            <span>Editing</span>
+          </div>
+          <div className="entry-modify">
+            <span>autosaved as draft</span>
+            <Button variant="secondary" size="md" onClick={handleShare}>
+              Share
+            </Button>
+            <Button variant="primary" size="md" onClick={handleSave}>
+              Save entry
+            </Button>
+          </div>
         </div>
-        <div className="entry-modify">
-          <span>autosaved as draft</span>
-          <Button variant="secondary" size="md" onClick={handleShare}>
-            Share
-          </Button>
-          <Button variant="primary" size="md">
-            Save entry
-          </Button>
-        </div>
+        <img src={image} alt="myimage" />
       </div>
 
       <div className="entry">
@@ -100,13 +117,21 @@ export function Entry() {
               id="moment"
               maxLength={200}
               rows={4}
+              value={moment}
+              onChange={(e) => setMoment(e.target.value)}
             ></textarea>
           </SectionCard>
           <SectionCard
             heading="A line worth keeping"
             subheading="a motto, a lyric, a snippet overheard"
           >
-            <input name="quote" id="quote" type="text" />
+            <input
+              name="quote"
+              id="quote"
+              type="text"
+              value={quote}
+              onChange={(e) => setQuote(e.target.value)}
+            />
           </SectionCard>
         </div>
       </div>

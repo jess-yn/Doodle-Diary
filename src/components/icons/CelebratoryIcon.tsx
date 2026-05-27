@@ -5,9 +5,9 @@ export const CelebratoryIcon: React.FC = () => {
       viewBox="0 0 32 32"
       fill="none"
       stroke="currentColor"
-      stroke-width="1.6"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <circle cx="16" cy="16" r="12.5" />
       <path d="M11 18c1.5 2 3 3 5 3s3.5-1 5-3" />
