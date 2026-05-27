@@ -33,6 +33,7 @@ export function Entry() {
   const [activeMood, setActiveMood] = useState<keyof typeof MOODS>();
   const canvasRef = useRef<CanvasHandle>(null);
   const [image, setImage] = useState("");
+  const [tabOpen, setTabOpen] = useState(false);
 
   const now: Date = new Date();
   const dateText = new Intl.DateTimeFormat("en-GB", {
@@ -72,7 +73,7 @@ export function Entry() {
         <div>
           <Canvas ref={canvasRef}></Canvas>
         </div>
-        <div className="entry-prompts">
+        <div className={`entry-prompts  ${tabOpen ? "open" : ""}`}>
           <SectionCard
             heading="How was today?"
             subheading="pick a mood which best describes you today"
@@ -109,6 +110,20 @@ export function Entry() {
           </SectionCard>
         </div>
       </div>
+      <div
+        className="entry-prompts-mobile-tab"
+        onClick={() => {
+          setTabOpen(true);
+        }}
+      >
+        Today's notes
+      </div>
+      <div
+        className={`overlay ${tabOpen ? "open" : ""}`}
+        onClick={() => {
+          setTabOpen(false);
+        }}
+      ></div>
     </>
   );
 }

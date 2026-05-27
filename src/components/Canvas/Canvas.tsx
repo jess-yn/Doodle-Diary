@@ -27,8 +27,6 @@ type Stroke = {
   color: string;
 };
 
-const MAX_UNDO_HISTORY = 20;
-
 const PEN_OPTIONS = {
   pencil: {
     size: 4,
@@ -192,9 +190,6 @@ export function Canvas({ ref }: CanvasProps) {
         pen: currentStrokePen.current,
         color: currentStrokeColor.current,
       });
-      if (pastStrokes.current.length > MAX_UNDO_HISTORY) {
-        pastStrokes.current.shift();
-      }
       currentStroke.current = [];
     };
 
